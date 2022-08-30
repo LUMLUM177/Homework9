@@ -6,17 +6,19 @@ public class Main {
                 array[i] = book;
                 break;
             }
+            if (i == array.length - 1) {
+                System.out.println("К сожалению, записать данные о книге " + book.getBookName() + " невозможно, не осталось места.");
+            }
         }
     }
 
     private static void printAllBooks(Book[] array) {
         for (int i = 0; i < array.length; i++) {
-            System.out.print(i + "-я книга - ");
+            System.out.print((i + 1) + "-я книга - ");
             if (array[i] == null) {
                 System.out.println("Данных не обнаружено.");
             } else {
-                System.out.print(array[i].getAuthorFullName().getAuthorName() + " " + array[i].getAuthorFullName().getAuthorSurname());
-                System.out.println(": " + array[i].getBookName() + ", " + array[i].getPublishingYear());
+                System.out.println(array[i].getAuthor() + ": " + array[i].getBookName() + ", " + array[i].getPublishingYear());
             }
         }
     }
@@ -24,32 +26,57 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println();
-        Author author1 = new Author("Жюль", "Верн");
-        Author author2 = new Author("Александр", "Дюма");
-        Author author3 = new Author("Стивен", "Спилберг");
-        Author author4 = new Author("Александр", "Пушкин");
-        Author author5 = new Author("Лев", "Толстой");
+        Author juleVerne = new Author("Жюль", "Верн");
+        Author alexanderDuma = new Author("Александр", "Дюма");
+        Author stivenSpilberg = new Author("Стивен", "Спилберг");
+        Author alexanderPushkin = new Author("Александр", "Пушкин");
+        Author levTolstoy = new Author("Лев", "Толстой");
 
-        Book book1 = new Book("Вокруг света за 80 дней", author1, 1873);
-        Book book2 = new Book("Граф Монте-Кристо", author2, 1844);
-        Book book3 = new Book("Тайна качелей", author3, 1959);
-        Book book4 = new Book("Капитанская дочка", author4, 1790);
-        Book book5 = new Book("Война и мир", author5, 1896);
+        Book aroundTheWorld = new Book("Вокруг света за 80 дней", juleVerne, 1873);
+        Book countMonteKristo = new Book("Граф Монте-Кристо", alexanderDuma, 1844);
+        Book secretSwing = new Book("Тайна качелей", stivenSpilberg, 1959);
+        Book captainDaughter = new Book("Капитанская дочка", alexanderPushkin, 1790);
+        Book warAndPeace = new Book("Война и мир", levTolstoy, 1896);
+        Book worldDetective = new Book("Всемирный детектив", stivenSpilberg, 1975);
+
 
         Book books[] = new Book[5];
-        books[0] = book5;
-        books[2] = book3;
-        addBook(book1, books);
-        addBook(book2, books);
-        addBook(book4, books);
+        books[0] = warAndPeace;
+        books[2] = secretSwing;
+        addBook(aroundTheWorld, books);
+        addBook(countMonteKristo, books);
+        addBook(captainDaughter, books);
         printAllBooks(books);
+        addBook(worldDetective, books);
 
         System.out.println();
         System.out.println("========Список книг после изменения года издательства=========");
         System.out.println();
-        book3.setPublishingYear(2007);
-        book5.setPublishingYear(2010);
+        secretSwing.setPublishingYear(2007);
+        warAndPeace.setPublishingYear(2010);
         printAllBooks(books);
         System.out.println();
+
+        Library library = new Library(5);
+        library.addBook(aroundTheWorld);
+        library.addBook(captainDaughter);
+        library.addBook(countMonteKristo);
+        library.addBook(worldDetective);
+        library.printAllBooks();
+        library.findBookByName("Тайна качелей");
+
+        System.out.println();
+        library.addBook(secretSwing);
+        library.printAllBooks();
+        library.findBookByName("Тайна качелей");
+
+        System.out.println();
+        System.out.println("========Список книг после изменения года издательства=========");
+        System.out.println();
+        library.changePublishingYear("Граф Монте-Кристо", 1900);
+        library.printAllBooks();
+
+
     }
 }
+

@@ -15,5 +15,9 @@ public class Author {
         return authorSurname;
     }
 
+    public String toString() {
+        return this.authorName + " " + this.authorSurname;
+    }
+
 
 }
